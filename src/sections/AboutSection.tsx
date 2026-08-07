@@ -1,4 +1,5 @@
 import React from 'react';
+import { motion } from 'framer-motion';
 import { Card, CardContent } from '@/components/ui/Card';
 import { Badge } from '@/components/ui/Badge';
 import { BookOpen, GraduationCap, Server } from 'lucide-react';
@@ -17,19 +18,31 @@ export const AboutSection: React.FC = () => {
       <div className="max-w-5xl mx-auto px-4 sm:px-6">
         
         {/* Section Header */}
-        <div className="mb-10">
+        <motion.div
+          initial={{ opacity: 0, y: 15 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.4 }}
+          className="mb-10"
+        >
           <div className="inline-flex items-center gap-2 text-xs font-mono text-emerald-400 mb-2">
             <span className="text-zinc-600">//</span> background &amp; education
           </div>
           <h2 className="text-2xl sm:text-3xl font-bold font-mono text-zinc-100 flex items-center gap-2">
             <span className="text-emerald-400">&gt;</span> about_me
           </h2>
-        </div>
+        </motion.div>
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
           
           {/* Main Bio Card */}
-          <div className="lg:col-span-7 space-y-6">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.1 }}
+            className="lg:col-span-7 space-y-6"
+          >
             <Card className="border-zinc-800/90 bg-zinc-950/90 hover:border-zinc-700/80">
               <CardContent className="p-6 space-y-4 text-zinc-300 font-sans leading-relaxed text-sm sm:text-base">
                 <p>
@@ -46,23 +59,29 @@ export const AboutSection: React.FC = () => {
 
             {/* Quick Metrics / Key Strengths */}
             <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 font-mono text-xs">
-              <div className="p-3 rounded-md bg-zinc-900/80 border border-zinc-800/80 text-center">
+              <div className="p-3 rounded-md bg-zinc-900/80 border border-zinc-800/80 text-center hover:border-emerald-500/40 transition-colors">
                 <div className="text-emerald-400 font-bold text-lg">45ms</div>
                 <div className="text-zinc-400 text-[11px] mt-0.5">Command Latency</div>
               </div>
-              <div className="p-3 rounded-md bg-zinc-900/80 border border-zinc-800/80 text-center">
+              <div className="p-3 rounded-md bg-zinc-900/80 border border-zinc-800/80 text-center hover:border-emerald-500/40 transition-colors">
                 <div className="text-emerald-400 font-bold text-lg">180MB</div>
                 <div className="text-zinc-400 text-[11px] mt-0.5">Local LLM RAM</div>
               </div>
-              <div className="p-3 rounded-md bg-zinc-900/80 border border-zinc-800/80 text-center col-span-2 sm:col-span-1">
+              <div className="p-3 rounded-md bg-zinc-900/80 border border-zinc-800/80 text-center col-span-2 sm:col-span-1 hover:border-emerald-500/40 transition-colors">
                 <div className="text-emerald-400 font-bold text-lg">4 Badges</div>
                 <div className="text-zinc-400 text-[11px] mt-0.5">OCI &amp; GCP Certs</div>
               </div>
             </div>
-          </div>
+          </motion.div>
 
           {/* Education & Academic Context */}
-          <div className="lg:col-span-5 space-y-6">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+            className="lg:col-span-5 space-y-6"
+          >
             
             {/* University Card */}
             <Card className="border-zinc-800/90 bg-zinc-950/90">
@@ -118,7 +137,7 @@ export const AboutSection: React.FC = () => {
               </CardContent>
             </Card>
 
-          </div>
+          </motion.div>
 
         </div>
 

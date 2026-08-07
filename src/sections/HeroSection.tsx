@@ -1,8 +1,17 @@
 import React from 'react';
+import { motion } from 'framer-motion';
 import { Terminal, Github, FileText, Mail, ArrowDown, ShieldCheck, MapPin, Cpu } from 'lucide-react';
 import { Button } from '@/components/ui/Button';
+import { TerminalTyping } from '@/components/TerminalTyping';
 
 export const HeroSection: React.FC = () => {
+  const terminalPhrases = [
+    'python3 main.py --role backend-ai',
+    'robin --mode offline --latency 45ms',
+    'gcp cloud-run deploy --serverless',
+    'oci genai --rag-inference',
+  ];
+
   return (
     <section id="hero" className="relative min-h-[92vh] pt-32 pb-20 flex items-center justify-center overflow-hidden">
       {/* Subtle Background Grid & Glow Overlay */}
@@ -13,12 +22,17 @@ export const HeroSection: React.FC = () => {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
           
           {/* Left Column: Bio & Core Info */}
-          <div className="lg:col-span-7 flex flex-col text-left space-y-6">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, ease: 'easeOut' }}
+            className="lg:col-span-7 flex flex-col text-left space-y-6"
+          >
             
-            {/* Top Prompt Badge */}
-            <div className="inline-flex items-center gap-2 self-start rounded-full border border-emerald-500/30 bg-emerald-500/10 px-3.5 py-1.5 text-xs font-mono text-emerald-400 backdrop-blur-sm">
+            {/* Animated Terminal Badge */}
+            <div className="inline-flex items-center gap-2 self-start rounded-full border border-emerald-500/30 bg-emerald-500/10 px-3.5 py-1.5 text-xs font-mono text-emerald-400 backdrop-blur-sm shadow-[0_0_15px_rgba(16,185,129,0.15)]">
               <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-              <span>&gt; python3 main.py --role backend-ai</span>
+              <TerminalTyping phrases={terminalPhrases} className="text-xs" />
             </div>
 
             {/* Main Heading */}
@@ -77,10 +91,15 @@ export const HeroSection: React.FC = () => {
               </a>
             </div>
 
-          </div>
+          </motion.div>
 
-          {/* Right Column: Hero Profile Image & Interactive Terminal Card */}
-          <div className="lg:col-span-5 flex flex-col items-center justify-center">
+          {/* Right Column: Hero Profile Image & Interactive Card */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.6, delay: 0.1, ease: 'easeOut' }}
+            className="lg:col-span-5 flex flex-col items-center justify-center"
+          >
             <div className="relative w-full max-w-sm">
               {/* Decorative Border Glow */}
               <div className="absolute -inset-1 rounded-2xl bg-gradient-to-r from-emerald-500/30 to-emerald-500/10 blur-xl opacity-75 group-hover:opacity-100 transition duration-500" />
@@ -93,9 +112,8 @@ export const HeroSection: React.FC = () => {
                   <img
                     src="/src/assets/photo.jpg"
                     alt="Himmat Singh"
-                    className="w-full h-full object-cover object-center filter grayscale contrast-125 hover:grayscale-0 transition-all duration-300"
+                    className="w-full h-full object-cover object-center filter grayscale contrast-125 group-hover:grayscale-0 transition-all duration-500"
                     onError={(e) => {
-                      // Fallback to placeholder if photo.jpg is not yet placed in src/assets
                       const target = e.target as HTMLImageElement;
                       target.onerror = null;
                       target.src = '/src/assets/photo-placeholder.svg';
@@ -124,17 +142,22 @@ export const HeroSection: React.FC = () => {
 
               </div>
             </div>
-          </div>
+          </motion.div>
 
         </div>
 
         {/* Scroll Indicator */}
-        <div className="mt-16 text-center">
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.8 }}
+          className="mt-16 text-center"
+        >
           <a href="#about" className="inline-flex items-center gap-2 font-mono text-xs text-zinc-500 hover:text-emerald-400 transition-colors">
             <span>scroll for context</span>
             <ArrowDown className="w-3.5 h-3.5 animate-bounce" />
           </a>
-        </div>
+        </motion.div>
 
       </div>
     </section>

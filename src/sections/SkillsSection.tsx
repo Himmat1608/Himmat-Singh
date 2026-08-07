@@ -1,4 +1,5 @@
 import React from 'react';
+import { motion } from 'framer-motion';
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/Card';
 import { Badge } from '@/components/ui/Badge';
 import { Code2, Layers, Cpu, Cloud, Database, Terminal } from 'lucide-react';
@@ -68,7 +69,13 @@ export const SkillsSection: React.FC = () => {
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
         
         {/* Section Header */}
-        <div className="mb-12">
+        <motion.div
+          initial={{ opacity: 0, y: 15 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.4 }}
+          className="mb-12"
+        >
           <div className="inline-flex items-center gap-2 text-xs font-mono text-emerald-400 mb-2">
             <span className="text-zinc-600">//</span> technical stack &amp; capabilities
           </div>
@@ -78,38 +85,43 @@ export const SkillsSection: React.FC = () => {
           <p className="text-sm text-zinc-400 font-sans mt-2">
             Grouped technologies derived directly from hands-on software development and cloud certification labs.
           </p>
-        </div>
+        </motion.div>
 
-        {/* Grid Layout */}
+        {/* Grid Layout with Staggered Scroll Animation */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {skillGroups.map((group) => (
-            <Card
+          {skillGroups.map((group, index) => (
+            <motion.div
               key={group.title}
-              className="border-zinc-800/90 bg-zinc-950/80 hover:border-emerald-500/40 hover:shadow-[0_0_20px_rgba(16,185,129,0.1)] transition-all duration-300 flex flex-col justify-between group"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.4, delay: index * 0.08 }}
             >
-              <CardHeader className="pb-3 border-b border-zinc-900">
-                <CardTitle className="text-base flex items-center gap-2 font-mono group-hover:text-emerald-400 transition-colors">
-                  <span className="p-1.5 rounded bg-zinc-900 border border-zinc-800 group-hover:border-emerald-500/40">
-                    {group.icon}
-                  </span>
-                  <span>{group.title}</span>
-                </CardTitle>
-              </CardHeader>
-              <CardContent className="pt-4 flex-1">
-                <div className="flex flex-wrap gap-2">
-                  {group.skills.map((skill) => (
-                    <Badge
-                      key={skill}
-                      variant="default"
-                      className="text-xs bg-zinc-900/90 text-zinc-300 border-zinc-800 hover:border-emerald-500/40 hover:text-emerald-300 font-mono py-1 px-2.5 transition-all"
-                    >
-                      <span className="text-emerald-500/60 mr-1.5">&gt;</span>
-                      {skill}
-                    </Badge>
-                  ))}
-                </div>
-              </CardContent>
-            </Card>
+              <Card className="h-full border-zinc-800/90 bg-zinc-950/80 hover:border-emerald-500/40 hover:shadow-[0_0_20px_rgba(16,185,129,0.1)] transition-all duration-300 flex flex-col justify-between group">
+                <CardHeader className="pb-3 border-b border-zinc-900">
+                  <CardTitle className="text-base flex items-center gap-2 font-mono group-hover:text-emerald-400 transition-colors">
+                    <span className="p-1.5 rounded bg-zinc-900 border border-zinc-800 group-hover:border-emerald-500/40">
+                      {group.icon}
+                    </span>
+                    <span>{group.title}</span>
+                  </CardTitle>
+                </CardHeader>
+                <CardContent className="pt-4 flex-1">
+                  <div className="flex flex-wrap gap-2">
+                    {group.skills.map((skill) => (
+                      <Badge
+                        key={skill}
+                        variant="default"
+                        className="text-xs bg-zinc-900/90 text-zinc-300 border-zinc-800 hover:border-emerald-500/40 hover:text-emerald-300 font-mono py-1 px-2.5 transition-all"
+                      >
+                        <span className="text-emerald-500/60 mr-1.5">&gt;</span>
+                        {skill}
+                      </Badge>
+                    ))}
+                  </div>
+                </CardContent>
+              </Card>
+            </motion.div>
           ))}
         </div>
 

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { motion } from 'framer-motion';
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/Card';
 import { Button } from '@/components/ui/Button';
 import { Mail, Github, Copy, Check, Send, MapPin, Terminal } from 'lucide-react';
@@ -18,7 +19,13 @@ export const ContactSection: React.FC = () => {
       <div className="max-w-5xl mx-auto px-4 sm:px-6">
         
         {/* Section Header */}
-        <div className="mb-12">
+        <motion.div
+          initial={{ opacity: 0, y: 15 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.4 }}
+          className="mb-12"
+        >
           <div className="inline-flex items-center gap-2 text-xs font-mono text-emerald-400 mb-2">
             <span className="text-zinc-600">//</span> get in touch
           </div>
@@ -28,12 +35,18 @@ export const ContactSection: React.FC = () => {
           <p className="text-sm text-zinc-400 font-sans mt-2">
             Open for Python, Backend, AI, and Cloud internship roles. Feel free to send a message or email directly.
           </p>
-        </div>
+        </motion.div>
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
           
           {/* Left Column: Direct Links & Info */}
-          <div className="lg:col-span-5 space-y-6">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.1 }}
+            className="lg:col-span-5 space-y-6"
+          >
             
             {/* Email Card */}
             <Card className="border-zinc-800 bg-zinc-950/90 hover:border-emerald-500/40 transition-colors">
@@ -111,10 +124,16 @@ export const ContactSection: React.FC = () => {
               </CardContent>
             </Card>
 
-          </div>
+          </motion.div>
 
           {/* Right Column: Netlify Compatible Contact Form */}
-          <div className="lg:col-span-7">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+            className="lg:col-span-7"
+          >
             <Card className="border-zinc-800 bg-zinc-950/90">
               <CardHeader className="border-b border-zinc-900 pb-4">
                 <CardTitle className="text-lg font-mono flex items-center gap-2">
@@ -181,7 +200,7 @@ export const ContactSection: React.FC = () => {
                 </form>
               </CardContent>
             </Card>
-          </div>
+          </motion.div>
 
         </div>
 
