@@ -1,164 +1,236 @@
-import React from 'react';
-import { motion } from 'framer-motion';
-import { Terminal, Github, FileText, Mail, ArrowDown, ShieldCheck, MapPin, Cpu } from 'lucide-react';
-import { Button } from '@/components/ui/Button';
-import { TerminalTyping } from '@/components/TerminalTyping';
+import React, { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { ArrowUpRight, FileText, Github, Terminal as TerminalIcon, CheckCircle2 } from 'lucide-react';
+import { sounds } from '@/utils/sound';
 
 export const HeroSection: React.FC = () => {
-  const terminalPhrases = [
-    'python3 main.py --role backend-ai',
-    'robin --mode offline --latency 45ms',
-    'gcp cloud-run deploy --serverless',
-    'oci genai --rag-inference',
+  const [roleIndex, setRoleIndex] = useState(0);
+
+  const roles = [
+    'Python Developer',
+    'AI Systems Builder',
+    'Backend Engineer',
   ];
 
+  // Rotating roles timer for terminal
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setRoleIndex((prev) => (prev + 1) % roles.length);
+    }, 2800);
+    return () => clearInterval(interval);
+  }, [roles.length]);
+
   return (
-    <section id="hero" className="relative min-h-[92vh] pt-32 pb-20 flex items-center justify-center overflow-hidden">
-      {/* Subtle Background Grid & Glow Overlay */}
-      <div className="absolute inset-0 bg-[linear-gradient(to_right,#18181b_1px,transparent_1px),linear-gradient(to_bottom,#18181b_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)] opacity-25 pointer-events-none" />
-      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none" />
-
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 relative z-10 w-full">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+    <section
+      id="hero"
+      className="relative min-h-[90vh] pt-36 sm:pt-44 pb-28 sm:pb-36 flex items-center justify-center z-10 px-4 sm:px-6 md:px-12 bg-[#0B0B0B]"
+    >
+      <div className="max-w-[1200px] mx-auto w-full">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-14 items-center">
           
-          {/* Left Column: Bio & Core Info */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, ease: 'easeOut' }}
-            className="lg:col-span-7 flex flex-col text-left space-y-6"
-          >
+          {/* LEFT SIDE: Identity, Supporting Line, Terminal, 8px Buttons (Max Hero Width 760px) */}
+          <div className="lg:col-span-7 max-w-[760px]">
             
-            {/* Animated Terminal Badge */}
-            <div className="inline-flex items-center gap-2 self-start rounded-full border border-emerald-500/30 bg-emerald-500/10 px-3.5 py-1.5 text-xs font-mono text-emerald-400 backdrop-blur-sm shadow-[0_0_15px_rgba(16,185,129,0.15)]">
-              <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-              <TerminalTyping phrases={terminalPhrases} className="text-xs" />
+            {/* Status Indicator */}
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-[6px] bg-[#111111] border border-white/[0.08] font-mono font-medium text-[13px] text-[#A1A1A1] mb-6">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#2ED47A]" />
+              <span>Himmat Singh</span>
+              <span className="text-[#707070]">•</span>
+              <span className="text-[#F3F3F0]">Open to Remote Internships</span>
             </div>
 
-            {/* Main Heading */}
-            <div>
-              <h1 className="text-4xl sm:text-6xl font-bold font-mono text-zinc-100 tracking-tight leading-tight">
-                Himmat Singh
-              </h1>
-              <p className="text-lg sm:text-xl font-mono text-emerald-400 mt-2 font-medium">
-                B.Tech CS Student • Python, Backend &amp; Cloud Engineer
-              </p>
+            {/* General Sans Hero Name: 600 weight, 72-96px, tracking -0.04em, line-height 0.95, mb-6 */}
+            <h1 className="text-[54px] sm:text-[76px] lg:text-[88px] xl:text-[96px] font-heading font-semibold tracking-[-0.04em] text-[#F3F3F0] uppercase leading-[0.95] mb-6">
+              HIMMAT SINGH
+            </h1>
+
+            {/* General Sans Hero Statement: 500 weight, 48-64px, tracking -0.03em, line-height 1.0, mb-6 */}
+            <div className="text-[28px] sm:text-[42px] lg:text-[48px] xl:text-[54px] font-heading font-medium text-[#A1A1A1] tracking-[-0.03em] leading-[1.0] mb-6 max-w-[680px]">
+              Building local-first AI systems and backend software for real-world constraints.
             </div>
 
-            {/* One-Line Identity */}
-            <p className="text-base sm:text-lg text-zinc-300 font-sans leading-relaxed max-w-2xl">
-              Building production-ready Python tools, local LLM inference engines, and cloud-native architectures. Developer of ROBIN — an offline 45ms-latency local AI assistant optimized for 6GB RAM systems.
-            </p>
+            {/* Technical Positioning (IBM Plex Mono 13px Weight 500) */}
+            <div className="flex flex-wrap items-center gap-2 font-mono font-medium text-[13px] text-[#707070] mb-6">
+              <span className="text-[#F3F3F0]">Python</span>
+              <span>•</span>
+              <span className="text-[#F3F3F0]">AI</span>
+              <span>•</span>
+              <span className="text-[#F3F3F0]">Backend</span>
+              <span>•</span>
+              <span className="text-[#F3F3F0]">Cloud</span>
+            </div>
 
-            {/* Location & Status Bar */}
-            <div className="flex flex-wrap items-center gap-4 text-xs font-mono text-zinc-400 pt-1">
-              <div className="flex items-center gap-1.5 bg-zinc-900/90 border border-zinc-800 px-3 py-1.5 rounded-md">
-                <MapPin className="w-3.5 h-3.5 text-emerald-400" />
-                <span>Kota, Rajasthan (Open to Remote)</span>
+            {/* Terminal (Clean, Minimal, Fast, No Green Glow) */}
+            <div className="p-3.5 rounded-[8px] bg-[#111111] border border-white/[0.08] font-mono text-[13px] text-[#A1A1A1] space-y-2 max-w-[640px] mb-6">
+              <div className="flex items-center gap-1.5 border-b border-white/[0.06] pb-2 text-[11px] text-[#707070]">
+                <span className="w-2 h-2 rounded-full bg-white/20" />
+                <span className="w-2 h-2 rounded-full bg-white/20" />
+                <span className="w-2 h-2 rounded-full bg-white/20" />
+                <span className="ml-2 font-mono text-[#707070]">terminal</span>
               </div>
-              <div className="flex items-center gap-1.5 bg-zinc-900/90 border border-zinc-800 px-3 py-1.5 rounded-md">
-                <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
-                <span>OCI &amp; GCP Certifications</span>
+
+              {/* Command 1: > whoami */}
+              <div className="space-y-0.5">
+                <div className="text-[#F3F3F0] font-mono text-[13px]">
+                  <span>&gt; whoami</span>
+                </div>
+
+                <div className="h-5 flex items-center font-mono text-[13px] text-[#2ED47A] pl-3">
+                  <span className="text-[#707070] mr-2">$</span>
+                  <AnimatePresence mode="wait">
+                    <motion.span
+                      key={roles[roleIndex]}
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      exit={{ opacity: 0 }}
+                      transition={{ duration: 0.15 }}
+                    >
+                      {roles[roleIndex]}
+                    </motion.span>
+                  </AnimatePresence>
+                  <span className="w-1.5 h-3 bg-[#2ED47A] ml-1 inline-block" />
+                </div>
+              </div>
+
+              {/* Command 2: > latest_project */}
+              <div className="pt-1.5 border-t border-white/[0.04] space-y-0.5">
+                <div className="text-[#F3F3F0] font-mono text-[13px]">
+                  <span>&gt; latest_project</span>
+                </div>
+                <div className="text-[#A1A1A1] font-mono text-[13px] pl-3 flex items-center gap-2">
+                  <span className="text-[#707070]">$</span>
+                  <span className="text-[#F3F3F0]">ROBIN AI Assistant</span>
+                  <span className="text-[#707070]">(45ms Router • 180MB RAM)</span>
+                </div>
               </div>
             </div>
 
-            {/* Call To Actions */}
-            <div className="flex flex-wrap items-center gap-3 pt-4">
-              <a href="#projects">
-                <Button variant="primary" size="lg">
-                  <Terminal className="w-4 h-4 mr-2" />
-                  View Projects
-                </Button>
+            {/* Redesigned Button System: 8px Radius, 44-48px Height, Inter 15px Medium */}
+            <div className="flex flex-wrap items-center gap-3">
+              <a
+                href="#robin-experience"
+                onClick={() => sounds.playClick()}
+                className="btn-primary"
+              >
+                <TerminalIcon className="w-4 h-4" />
+                <span>Explore ROBIN</span>
+                <ArrowUpRight className="w-3.5 h-3.5 opacity-70" />
               </a>
 
-              <a href="/resume.pdf" target="_blank" rel="noopener noreferrer">
-                <Button variant="terminal" size="lg">
-                  <FileText className="w-4 h-4 mr-2" />
-                  Resume (PDF)
-                </Button>
+              <a
+                href="/resume.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => sounds.playClick()}
+                className="btn-secondary"
+              >
+                <FileText className="w-4 h-4 text-[#A1A1A1]" />
+                <span>Resume PDF</span>
               </a>
 
-              <a href="https://github.com/Himmat1608" target="_blank" rel="noopener noreferrer" aria-label="GitHub Profile">
-                <Button variant="secondary" size="lg" className="px-3">
-                  <Github className="w-5 h-5 text-zinc-300 hover:text-emerald-400" />
-                </Button>
-              </a>
-
-              <a href="mailto:chimmatasingh59@gmail.com" aria-label="Send Email">
-                <Button variant="secondary" size="lg" className="px-3">
-                  <Mail className="w-5 h-5 text-zinc-300 hover:text-emerald-400" />
-                </Button>
+              <a
+                href="https://github.com/Himmat1608"
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => sounds.playClick()}
+                className="btn-secondary"
+              >
+                <Github className="w-4 h-4 text-[#A1A1A1]" />
+                <span>GitHub</span>
               </a>
             </div>
 
-          </motion.div>
+          </div>
 
-          {/* Right Column: Hero Profile Image & Interactive Card */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.6, delay: 0.1, ease: 'easeOut' }}
-            className="lg:col-span-5 flex flex-col items-center justify-center"
-          >
-            <div className="relative w-full max-w-sm">
-              {/* Decorative Border Glow */}
-              <div className="absolute -inset-1 rounded-2xl bg-gradient-to-r from-emerald-500/30 to-emerald-500/10 blur-xl opacity-75 group-hover:opacity-100 transition duration-500" />
+          {/* RIGHT SIDE: Engineering Snapshot (24px Radius, Clean Evidence) */}
+          <div className="lg:col-span-5 flex justify-center items-center">
+            <div className="w-full max-w-md rounded-[24px] p-6 sm:p-7 bg-[#111111] border border-white/[0.08] hover:border-white/[0.16] transition-colors space-y-5">
               
-              <div className="relative rounded-xl border border-zinc-800 bg-zinc-950/90 p-4 shadow-2xl backdrop-blur-md">
-                
-                {/* Profile Photo Wrapper */}
-                <div className="relative aspect-square w-full rounded-lg overflow-hidden border border-zinc-800 bg-zinc-900 group">
-                  {/* TODO: HIMMAT_FILL — add photo.jpg to /src/assets instead */}
-                  <img
-                    src="/src/assets/photo.jpg"
-                    alt="Himmat Singh"
-                    className="w-full h-full object-cover object-center filter grayscale contrast-125 group-hover:grayscale-0 transition-all duration-500"
-                    onError={(e) => {
-                      const target = e.target as HTMLImageElement;
-                      target.onerror = null;
-                      target.src = '/src/assets/photo-placeholder.svg';
-                    }}
-                  />
-                  <div className="absolute bottom-2 left-2 right-2 bg-zinc-950/80 backdrop-blur-sm border border-zinc-800 rounded px-2.5 py-1 font-mono text-[10px] text-zinc-400 flex items-center justify-between">
-                    <span>himmat_singh.jpg</span>
-                    <span className="text-emerald-400">2024-2028</span>
-                  </div>
+              {/* Header */}
+              <div className="border-b border-white/[0.08] pb-4 space-y-1">
+                <div className="flex items-center justify-between">
+                  <h2 className="font-mono font-medium text-[13px] uppercase tracking-wider text-[#A1A1A1]">
+                    ENGINEERING SNAPSHOT
+                  </h2>
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#2ED47A]" />
                 </div>
-
-                {/* System Specs Snippet */}
-                <div className="mt-4 pt-3 border-t border-zinc-800/80 font-mono text-xs text-zinc-400 space-y-1.5">
-                  <div className="flex items-center justify-between text-zinc-300">
-                    <span className="flex items-center gap-1.5">
-                      <Cpu className="w-3.5 h-3.5 text-emerald-400" />
-                      <span>Poornima Univ B.Tech CS</span>
-                    </span>
-                    <span className="text-emerald-400 font-bold">3rd Year</span>
-                  </div>
-                  <div className="flex items-center justify-between text-[11px] text-zinc-500">
-                    <span>Target Role:</span>
-                    <span className="text-zinc-300">Python / Backend / AI Intern</span>
-                  </div>
-                </div>
-
+                <p className="text-[13px] font-sans text-[#707070]">
+                  &quot;What I build, backed by real work.&quot;
+                </p>
               </div>
+
+              {/* Currently Focused On */}
+              <div className="space-y-1.5">
+                <div className="font-mono font-medium text-[13px] text-[#707070] uppercase">
+                  Currently focused on
+                </div>
+                <div className="flex flex-wrap gap-1.5 font-sans text-xs text-[#F3F3F0]">
+                  <span className="px-2.5 py-1 rounded-[6px] bg-[#151515] border border-white/[0.06]">AI Systems</span>
+                  <span className="px-2.5 py-1 rounded-[6px] bg-[#151515] border border-white/[0.06]">Backend Engineering</span>
+                  <span className="px-2.5 py-1 rounded-[6px] bg-[#151515] border border-white/[0.06]">Cloud Infrastructure</span>
+                </div>
+              </div>
+
+              {/* Compact Evidence Cards */}
+              <div className="grid grid-cols-2 gap-2.5 pt-1">
+                <div className="p-3 rounded-[8px] bg-[#151515] border border-white/[0.06] space-y-0.5">
+                  <div className="font-heading font-semibold text-sm text-[#F3F3F0]">ROBIN</div>
+                  <div className="text-[11px] font-sans text-[#A1A1A1]">Local AI Assistant</div>
+                </div>
+
+                <div className="p-3 rounded-[8px] bg-[#151515] border border-white/[0.06] space-y-0.5">
+                  <div className="font-heading font-semibold text-sm text-[#2ED47A]">45ms</div>
+                  <div className="text-[11px] font-sans text-[#A1A1A1]">Command routing</div>
+                </div>
+
+                <div className="p-3 rounded-[8px] bg-[#151515] border border-white/[0.06] space-y-0.5">
+                  <div className="font-heading font-semibold text-sm text-[#F3F3F0]">180MB</div>
+                  <div className="text-[11px] font-sans text-[#A1A1A1]">Memory footprint</div>
+                </div>
+
+                <div className="p-3 rounded-[8px] bg-[#151515] border border-white/[0.06] space-y-0.5">
+                  <div className="font-heading font-semibold text-sm text-[#F3F3F0]">6GB</div>
+                  <div className="text-[11px] font-sans text-[#A1A1A1]">Optimized system target</div>
+                </div>
+              </div>
+
+              {/* Featured Work Navigation Rows */}
+              <div className="pt-2 border-t border-white/[0.08] space-y-2">
+                <div className="font-mono font-medium text-[13px] text-[#707070] uppercase">
+                  Featured Work
+                </div>
+
+                <a
+                  href="#robin-experience"
+                  onClick={() => sounds.playClick()}
+                  className="p-2.5 rounded-[8px] bg-[#151515] border border-white/[0.06] hover:border-white/[0.18] transition-colors flex items-center justify-between group"
+                >
+                  <div className="flex items-center gap-2">
+                    <CheckCircle2 className="w-3.5 h-3.5 text-[#2ED47A] shrink-0" />
+                    <span className="font-sans font-medium text-xs text-[#F3F3F0]">ROBIN</span>
+                    <span className="text-[11px] font-sans text-[#707070]">— Flagship Project</span>
+                  </div>
+                  <ArrowUpRight className="w-3.5 h-3.5 text-[#707070] group-hover:text-[#F3F3F0] transition-colors" />
+                </a>
+
+                <a
+                  href="#projects"
+                  onClick={() => sounds.playClick()}
+                  className="p-2.5 rounded-[8px] bg-[#151515] border border-white/[0.06] hover:border-white/[0.18] transition-colors flex items-center justify-between group"
+                >
+                  <div className="flex items-center gap-2">
+                    <CheckCircle2 className="w-3.5 h-3.5 text-[#2ED47A] shrink-0" />
+                    <span className="font-sans font-medium text-xs text-[#F3F3F0]">SGPA Calculator</span>
+                    <span className="text-[11px] font-sans text-[#707070]">— Flask Web App</span>
+                  </div>
+                  <ArrowUpRight className="w-3.5 h-3.5 text-[#707070] group-hover:text-[#F3F3F0] transition-colors" />
+                </a>
+              </div>
+
             </div>
-          </motion.div>
+          </div>
 
         </div>
-
-        {/* Scroll Indicator */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.8 }}
-          className="mt-16 text-center"
-        >
-          <a href="#about" className="inline-flex items-center gap-2 font-mono text-xs text-zinc-500 hover:text-emerald-400 transition-colors">
-            <span>scroll for context</span>
-            <ArrowDown className="w-3.5 h-3.5 animate-bounce" />
-          </a>
-        </motion.div>
-
       </div>
     </section>
   );

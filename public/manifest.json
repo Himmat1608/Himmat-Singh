@@ -1,0 +1,16 @@
+{
+  "name": "Himmat Singh Portfolio",
+  "short_name": "Himmat Portfolio",
+  "description": "Himmat Singh — AI Systems, Local LLM Runtimes, Backend Infrastructure & Cloud Engineering.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#09090b",
+  "theme_color": "#09090b",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ]
+}

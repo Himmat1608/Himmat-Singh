@@ -1,128 +1,27 @@
 import React from 'react';
-import { motion } from 'framer-motion';
-import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/Card';
-import { Badge } from '@/components/ui/Badge';
-import { Code2, Layers, Cpu, Cloud, Database, Terminal } from 'lucide-react';
-
-interface SkillGroup {
-  title: string;
-  icon: React.ReactNode;
-  skills: string[];
-}
+import { TechOrbit } from '@/components/TechOrbit';
 
 export const SkillsSection: React.FC = () => {
-  const skillGroups: SkillGroup[] = [
-    {
-      title: 'Languages',
-      icon: <Code2 className="w-4 h-4 text-emerald-400" />,
-      skills: ['Python', 'JavaScript', 'HTML/CSS', 'SQL', 'C++ (DSA)'],
-    },
-    {
-      title: 'Frameworks & Libraries',
-      icon: <Layers className="w-4 h-4 text-emerald-400" />,
-      skills: ['Flask', 'CustomTkinter', 'SpeechRecognition', 'Edge-TTS', 'psutil', 'pycaw', 'pywin32'],
-    },
-    {
-      title: 'AI & Automation',
-      icon: <Cpu className="w-4 h-4 text-emerald-400" />,
-      skills: [
-        'Ollama (local LLM inference)',
-        'Prompt Engineering',
-        'Windows COM automation',
-        'Voice I/O pipeline',
-      ],
-    },
-    {
-      title: 'Cloud Platforms',
-      icon: <Cloud className="w-4 h-4 text-emerald-400" />,
-      skills: [
-        'Google Cloud Platform (Cloud Run, Vertex AI, Dataplex)',
-        'Oracle Cloud Infrastructure (OCI)',
-      ],
-    },
-    {
-      title: 'Backend & Databases',
-      icon: <Database className="w-4 h-4 text-emerald-400" />,
-      skills: [
-        'REST API design',
-        'Flask web development',
-        'SQL schema design',
-        'JSON-based data storage',
-      ],
-    },
-    {
-      title: 'DevOps & Tools',
-      icon: <Terminal className="w-4 h-4 text-emerald-400" />,
-      skills: [
-        'Git',
-        'GitHub',
-        'VS Code',
-        'Linux (CLI)',
-        'GitHub Actions',
-        'Multithreading & Async I/O',
-      ],
-    },
-  ];
-
   return (
-    <section id="skills" className="py-20 border-t border-zinc-800/80 bg-zinc-950/20">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6">
+    <section id="skills" className="py-[120px] lg:py-[160px] relative z-10 border-t border-white/[0.08] bg-[#0B0B0B]">
+      <div className="max-w-[1200px] mx-auto px-4 sm:px-6 md:px-12 space-y-12">
         
         {/* Section Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 15 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.4 }}
-          className="mb-12"
-        >
-          <div className="inline-flex items-center gap-2 text-xs font-mono text-emerald-400 mb-2">
-            <span className="text-zinc-600">//</span> technical stack &amp; capabilities
+        <div className="space-y-2 mb-6 max-w-[640px]">
+          <div className="font-mono font-medium text-[13px] text-[#707070] uppercase tracking-wider">
+            TECHNICAL MATRIX
           </div>
-          <h2 className="text-2xl sm:text-3xl font-bold font-mono text-zinc-100 flex items-center gap-2">
-            <span className="text-emerald-400">&gt;</span> technical_skills
+          <h2 className="text-[32px] sm:text-[40px] lg:text-[48px] font-heading font-semibold tracking-[-0.03em] leading-tight text-[#F3F3F0]">
+            Interactive Skill Orbit
           </h2>
-          <p className="text-sm text-zinc-400 font-sans mt-2">
-            Grouped technologies derived directly from hands-on software development and cloud certification labs.
+          <p className="text-[17px] sm:text-[18px] leading-[1.7] font-sans text-[#A1A1A1]">
+            A structured visual mapping of core languages, runtimes, and cloud platforms. Select any node to review verified production implementation details.
           </p>
-        </motion.div>
+        </div>
 
-        {/* Grid Layout with Staggered Scroll Animation */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {skillGroups.map((group, index) => (
-            <motion.div
-              key={group.title}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.4, delay: index * 0.08 }}
-            >
-              <Card className="h-full border-zinc-800/90 bg-zinc-950/80 hover:border-emerald-500/40 hover:shadow-[0_0_20px_rgba(16,185,129,0.1)] transition-all duration-300 flex flex-col justify-between group">
-                <CardHeader className="pb-3 border-b border-zinc-900">
-                  <CardTitle className="text-base flex items-center gap-2 font-mono group-hover:text-emerald-400 transition-colors">
-                    <span className="p-1.5 rounded bg-zinc-900 border border-zinc-800 group-hover:border-emerald-500/40">
-                      {group.icon}
-                    </span>
-                    <span>{group.title}</span>
-                  </CardTitle>
-                </CardHeader>
-                <CardContent className="pt-4 flex-1">
-                  <div className="flex flex-wrap gap-2">
-                    {group.skills.map((skill) => (
-                      <Badge
-                        key={skill}
-                        variant="default"
-                        className="text-xs bg-zinc-900/90 text-zinc-300 border-zinc-800 hover:border-emerald-500/40 hover:text-emerald-300 font-mono py-1 px-2.5 transition-all"
-                      >
-                        <span className="text-emerald-500/60 mr-1.5">&gt;</span>
-                        {skill}
-                      </Badge>
-                    ))}
-                  </div>
-                </CardContent>
-              </Card>
-            </motion.div>
-          ))}
+        {/* 60% Orbit / 40% Dynamic Detail Panel Container */}
+        <div className="p-6 sm:p-8 rounded-[16px] bg-[#111111] border border-white/[0.08]">
+          <TechOrbit />
         </div>
 
       </div>

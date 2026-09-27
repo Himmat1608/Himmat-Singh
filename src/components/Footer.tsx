@@ -1,50 +1,67 @@
 import React from 'react';
-import { Github, Mail, ArrowUp } from 'lucide-react';
+import { sounds } from '@/utils/sound';
 
 export const Footer: React.FC = () => {
-  const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  };
-
   return (
-    <footer className="border-t border-zinc-800/80 bg-zinc-950/60 py-8 px-4 sm:px-6 font-mono text-xs text-zinc-500">
-      <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
-        {/* Left Column: Terminal Copyright & Status */}
-        <div className="flex flex-col sm:flex-row items-center gap-3 text-center sm:text-left">
-          <div className="flex items-center gap-2">
-            <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-            <span className="text-zinc-400">&gt; status: open to remote internships</span>
+    <footer className="py-12 border-t border-white/[0.08] bg-[#0B0B0B] relative z-10">
+      <div className="max-w-[1200px] mx-auto px-4 sm:px-6 md:px-12 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
+        
+        {/* Left: Identity & Core Domains */}
+        <div className="space-y-1">
+          <div className="font-heading font-semibold text-[16px] text-[#F3F3F0]">
+            Himmat Singh
           </div>
-          <span className="hidden sm:inline text-zinc-700">|</span>
-          <span>© {new Date().getFullYear()} Himmat Singh. Kota, Rajasthan.</span>
+          <div className="font-mono font-medium text-[13px] text-[#707070] flex items-center gap-2">
+            <span>Python</span>
+            <span>•</span>
+            <span>AI</span>
+            <span>•</span>
+            <span>Backend</span>
+            <span>•</span>
+            <span>Cloud</span>
+          </div>
         </div>
 
-        {/* Right Column: Links & Scroll to top */}
-        <div className="flex items-center space-x-6">
+        {/* Right: Direct Navigation Links */}
+        <div className="flex items-center gap-6 font-sans font-medium text-[15px] text-[#A1A1A1]">
           <a
             href="https://github.com/Himmat1608"
             target="_blank"
             rel="noopener noreferrer"
-            className="hover:text-emerald-400 transition-colors flex items-center gap-1.5"
+            onClick={() => sounds.playClick()}
+            onMouseEnter={() => sounds.playHover()}
+            className="hover:text-[#F3F3F0] transition-colors"
           >
-            <Github className="w-3.5 h-3.5" />
-            <span>github</span>
+            GitHub
           </a>
           <a
             href="mailto:chimmatasingh59@gmail.com"
-            className="hover:text-emerald-400 transition-colors flex items-center gap-1.5"
+            onClick={() => sounds.playClick()}
+            onMouseEnter={() => sounds.playHover()}
+            className="hover:text-[#F3F3F0] transition-colors"
           >
-            <Mail className="w-3.5 h-3.5" />
-            <span>email</span>
+            Email
           </a>
-          <button
-            onClick={scrollToTop}
-            aria-label="Scroll to top"
-            className="p-1.5 rounded border border-zinc-800 hover:border-emerald-500/50 hover:text-emerald-400 transition-colors"
+          <a
+            href="/resume.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={() => sounds.playClick()}
+            onMouseEnter={() => sounds.playHover()}
+            className="hover:text-[#F3F3F0] transition-colors"
           >
-            <ArrowUp className="w-3.5 h-3.5" />
-          </button>
+            Resume
+          </a>
+          <a
+            href="#hero"
+            onClick={() => sounds.playClick()}
+            onMouseEnter={() => sounds.playHover()}
+            className="text-[#707070] hover:text-[#F3F3F0] transition-colors"
+          >
+            &uarr; Top
+          </a>
         </div>
+
       </div>
     </footer>
   );

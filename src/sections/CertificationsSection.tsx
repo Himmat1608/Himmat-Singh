@@ -1,168 +1,128 @@
 import React from 'react';
-import { motion } from 'framer-motion';
-import { Card, CardHeader, CardTitle, CardContent, CardFooter } from '@/components/ui/Card';
-import { Badge } from '@/components/ui/Badge';
-import { Button } from '@/components/ui/Button';
-import { Award, ExternalLink, ShieldCheck } from 'lucide-react';
+import { ExternalLink } from 'lucide-react';
+import { sounds } from '@/utils/sound';
 
-interface CertificationItem {
+interface CertCard {
   id: string;
   title: string;
   issuer: 'Oracle Cloud' | 'Google Cloud';
   issueDate: string;
-  skillsCovered: string;
   verificationUrl: string;
-  badgeLogo: string;
+  skills: string;
+  badgeNumber: string;
 }
 
 export const CertificationsSection: React.FC = () => {
-  const certifications: CertificationItem[] = [
+  const certifications: CertCard[] = [
     {
-      id: 'oci-genai-prof',
-      title: 'Oracle Cloud Infrastructure (OCI) — Generative AI Professional',
+      id: 'oci-genai',
+      title: 'Oracle Cloud Infrastructure — Generative AI Professional',
       issuer: 'Oracle Cloud',
       issueDate: '2025',
-      skillsCovered: 'Completed hands-on labs in LLM fundamentals, prompt engineering, RAG, and generative AI deployment.',
       verificationUrl: 'https://www.credly.com/users/himmat-singh.94c1a0fd/badges/credly',
-      badgeLogo: 'https://images.credly.com/images/40960d70-349f-4318-ae22-1d5d1c4c8106/image.png',
+      skills: 'LLM Fine-tuning, Prompt Engineering, RAG Pipelines, OCI Cluster Deployment',
+      badgeNumber: 'OCI-GENAI-2025',
     },
     {
       id: 'gcp-cloud-run',
-      title: 'Google Cloud — Cloud Run Skill Badge',
+      title: 'Google Cloud — Cloud Run Serverless Deployments',
       issuer: 'Google Cloud',
       issueDate: '2025',
-      skillsCovered: 'Deployed auto-scaling serverless container applications on Google Cloud Run.',
       verificationUrl: 'https://www.credly.com/users/himmat-singh.94c1a0fd/badges/credly',
-      badgeLogo: 'https://images.credly.com/images/be009260-84a1-43af-8d26-f76c3e9a7e04/image.png',
+      skills: 'Serverless Container Applications, Auto-Scaling Deployments, Cloud Infrastructure',
+      badgeNumber: 'GCP-RUN-2025',
     },
     {
       id: 'gcp-dataplex',
-      title: 'Google Cloud — Dataplex Skill Badge',
+      title: 'Google Cloud — Dataplex Data Governance',
       issuer: 'Google Cloud',
       issueDate: '2025',
-      skillsCovered: 'Data cataloging, governance, and metadata management on Google Cloud Dataplex.',
       verificationUrl: 'https://www.credly.com/users/himmat-singh.94c1a0fd/badges/credly',
-      badgeLogo: 'https://images.credly.com/images/c0d753c1-b0db-4e14-aa25-e510842db13e/image.png',
+      skills: 'Data Cataloging, Metadata Governance, Distributed Data Lake Management',
+      badgeNumber: 'GCP-DATA-2025',
     },
     {
-      id: 'gcp-vertex-prompt',
-      title: 'Google Cloud — Vertex AI Prompt Design Skill Badge',
+      id: 'gcp-vertex-ai',
+      title: 'Google Cloud — Vertex AI Prompt Design',
       issuer: 'Google Cloud',
       issueDate: '2025',
-      skillsCovered: 'LLM prompt engineering strategies, zero-shot/few-shot tuning, and Vertex AI multimodal workflows.',
       verificationUrl: 'https://www.credly.com/users/himmat-singh.94c1a0fd/badges/credly',
-      badgeLogo: 'https://images.credly.com/images/2b7e5104-e570-49c0-827d-08b5e28ff798/image.png',
+      skills: 'Vertex AI Studio, Multimodal Prompt Tuning, Few-Shot Engineering Strategies',
+      badgeNumber: 'GCP-VTX-2025',
     },
   ];
 
   return (
-    <section id="certifications" className="py-20 border-t border-zinc-800/80 bg-zinc-950/20">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6">
+    <section id="certifications" className="py-[120px] lg:py-[160px] relative z-10 border-t border-white/[0.08] bg-[#0B0B0B]">
+      <div className="max-w-[1200px] mx-auto px-4 sm:px-6 md:px-12 space-y-12">
         
-        {/* Section Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 15 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.4 }}
-          className="mb-10"
-        >
-          <div className="inline-flex items-center gap-2 text-xs font-mono text-emerald-400 mb-2">
-            <span className="text-zinc-600">//</span> verified credentials
-          </div>
-          <h2 className="text-2xl sm:text-3xl font-bold font-mono text-zinc-100 flex items-center gap-2">
-            <span className="text-emerald-400">&gt;</span> industry_certifications
-          </h2>
-          <p className="text-sm text-zinc-400 font-sans mt-2">
-            Verifiable badges issued by Oracle Cloud Infrastructure &amp; Google Cloud for Generative AI and Cloud Engineering.
-          </p>
-        </motion.div>
-
-        {/* Public Credly Notice Alert */}
-        <motion.div
-          initial={{ opacity: 0, y: 15 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.4, delay: 0.1 }}
-          className="mb-8 p-4 rounded-lg bg-zinc-900/80 border border-zinc-800 flex items-start gap-3 font-mono text-xs text-zinc-300"
-        >
-          <ShieldCheck className="w-5 h-5 text-emerald-400 shrink-0 mt-0.5" />
-          <div className="space-y-1">
-            <p className="text-emerald-400 font-bold">Verifiable Credly Credentials</p>
-            <p className="text-zinc-400 font-sans text-xs">
-              Every badge below links directly to live Credly verification. 
-              <span className="text-amber-400 font-mono"> Note for Himmat:</span> Ensure all 4 badges are set to &quot;Public&quot; in Credly settings so recruiters can verify credentials.
+        {/* Header */}
+        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 border-b border-white/[0.08] pb-8 mb-6">
+          <div className="space-y-2 max-w-[640px]">
+            <div className="font-mono font-medium text-[13px] text-[#707070] uppercase tracking-wider">
+              CREDENTIALS &amp; VALIDATION
+            </div>
+            <h2 className="text-[32px] sm:text-[40px] lg:text-[48px] font-heading font-semibold tracking-[-0.03em] leading-tight text-[#F3F3F0]">
+              Cloud &amp; AI Certifications
+            </h2>
+            <p className="text-[17px] sm:text-[18px] leading-[1.7] font-sans text-[#A1A1A1]">
+              Official industry certifications and skill badges issued by Oracle Cloud Infrastructure and Google Cloud.
             </p>
           </div>
-        </motion.div>
 
-        {/* Badges Grid (4 columns desktop, 2 tablet, 1 mobile) */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {certifications.map((cert, index) => (
-            <motion.div
-              key={cert.id}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.4, delay: index * 0.08 }}
-              className="flex"
-            >
-              <Card className="w-full border-zinc-800 bg-zinc-950/90 hover:border-emerald-500/50 hover:shadow-[0_0_20px_rgba(16,185,129,0.15)] transition-all duration-300 flex flex-col justify-between group">
-                <CardHeader className="pb-3 text-center">
-                  <div className="mx-auto mb-3 w-20 h-20 rounded-xl bg-zinc-900 border border-zinc-800 p-2.5 flex items-center justify-center group-hover:border-emerald-500/40 transition-colors">
-                    <Award className="w-10 h-10 text-emerald-400 group-hover:scale-110 transition-transform duration-200" />
-                  </div>
-                  
-                  <div className="flex justify-center mb-2">
-                    <Badge variant="emerald" className="text-[10px]">
-                      {cert.issuer} • {cert.issueDate}
-                    </Badge>
-                  </div>
-
-                  <CardTitle className="text-sm font-mono text-zinc-100 font-bold leading-snug group-hover:text-emerald-400 transition-colors min-h-[2.5rem] flex items-center justify-center">
-                    {cert.title}
-                  </CardTitle>
-                </CardHeader>
-
-                <CardContent className="pt-0 pb-4 text-center font-sans text-xs text-zinc-400 flex-1 flex flex-col justify-between">
-                  <p className="line-clamp-3 leading-relaxed">
-                    {cert.skillsCovered}
-                  </p>
-
-                  <div className="mt-3 pt-2 border-t border-zinc-900 text-[10px] font-mono text-zinc-500">
-                    <span>// TODO: HIMMAT_FILL (Credly share URL)</span>
-                  </div>
-                </CardContent>
-
-                <CardFooter className="pt-3 justify-center border-t border-zinc-800/80">
-                  <a
-                    href={cert.verificationUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="w-full"
-                  >
-                    <Button variant="terminal" size="sm" className="w-full text-xs justify-center">
-                      Verify on Credly
-                      <ExternalLink className="w-3.5 h-3.5 ml-1.5" />
-                    </Button>
-                  </a>
-                </CardFooter>
-              </Card>
-            </motion.div>
-          ))}
-        </div>
-
-        {/* Credly Profile Direct CTA */}
-        <div className="mt-8 text-center">
           <a
             href="https://www.credly.com/users/himmat-singh.94c1a0fd/badges/credly"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 font-mono text-xs text-zinc-400 hover:text-emerald-400 transition-colors"
+            onClick={() => sounds.playClick()}
+            className="btn-secondary h-10 px-3.5 text-[15px] shrink-0"
           >
-            <span>View complete Credly Profile</span>
-            <ExternalLink className="w-3.5 h-3.5" />
+            <span>Verify Credly Profile</span>
+            <ExternalLink className="w-3.5 h-3.5 text-[#707070]" />
           </a>
+        </div>
+
+        {/* Certification Cards Grid (No Neon, 12px radius, subtle hover) */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+          {certifications.map((cert) => (
+            <div
+              key={cert.id}
+              className="p-5 rounded-[12px] bg-[#111111] border border-white/[0.08] hover:border-white/[0.18] transition-colors flex flex-col justify-between space-y-4"
+            >
+              <div className="space-y-3">
+                <div className="flex items-center justify-between text-xs font-mono text-[#707070]">
+                  <span>{cert.issuer}</span>
+                  <span>{cert.issueDate}</span>
+                </div>
+
+                <div className="space-y-1">
+                  <div className="text-[10px] font-mono text-[#707070] uppercase">
+                    {cert.badgeNumber}
+                  </div>
+                  <h3 className="font-heading font-medium text-base text-[#F3F3F0] leading-snug">
+                    {cert.title}
+                  </h3>
+                </div>
+
+                <p className="text-xs font-sans text-[#A1A1A1] leading-relaxed line-clamp-3">
+                  {cert.skills}
+                </p>
+              </div>
+
+              <div className="pt-3 border-t border-white/[0.06]">
+                <a
+                  href={cert.verificationUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={() => sounds.playClick()}
+                  className="inline-flex items-center gap-1.5 text-xs font-sans text-[#F3F3F0] hover:text-[#2ED47A] transition-colors"
+                >
+                  <span>Verify Record</span>
+                  <ExternalLink className="w-3 h-3 text-[#707070]" />
+                </a>
+              </div>
+            </div>
+          ))}
         </div>
 
       </div>

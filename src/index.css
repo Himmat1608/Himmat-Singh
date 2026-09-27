@@ -2,54 +2,184 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Local General Sans Font declaration fallback */
+@font-face {
+  font-family: 'General Sans';
+  src: local('General Sans'), local('GeneralSans-Variable'), local('GeneralSans-Medium'), local('GeneralSans-Semibold');
+  font-weight: 500 600;
+  font-display: swap;
+}
+
 @layer base {
   :root {
-    --color-bg: #0a0a0a;
-    --color-accent: #10b981;
+    --bg-main: #0B0B0B;
+    --surface-main: #111111;
+    --surface-secondary: #151515;
+    --border-main: rgba(255, 255, 255, 0.08);
+    --border-hover: rgba(255, 255, 255, 0.16);
+    --accent: #2ED47A;
+    --font-heading: 'General Sans', 'Manrope', system-ui, -apple-system, sans-serif;
+    --font-body: 'Inter', system-ui, -apple-system, sans-serif;
+    --font-mono: 'IBM Plex Mono', monospace;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    text-size-adjust: 100%;
+    -webkit-tap-highlight-color: transparent;
+    background-color: var(--bg-main);
   }
 
   body {
-    background-color: var(--color-bg);
-    color: #f4f4f5;
-    font-family: 'Inter', sans-serif;
+    background-color: var(--bg-main);
+    color: #F3F3F0;
+    font-family: var(--font-body);
+    font-size: 17px;
+    line-height: 1.7;
+    font-weight: 400;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
   }
 
-  h1, h2, h3, h4, h5, h6, .font-mono {
-    font-family: 'JetBrains Mono', monospace;
+  @media (min-width: 640px) {
+    body {
+      font-size: 18px;
+    }
+  }
+
+  h1, h2, h3, h4, .font-heading, .font-display {
+    font-family: var(--font-heading);
+    letter-spacing: -0.02em;
+  }
+
+  code, pre, .font-mono {
+    font-family: var(--font-mono);
+  }
+
+  *:focus-visible {
+    outline: 2px solid #2ED47A !important;
+    outline-offset: 2px !important;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, ::before, ::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
   }
 }
 
-/* Custom Scrollbar */
+/* Minimal Custom Scrollbar */
 ::-webkit-scrollbar {
-  width: 8px;
+  width: 5px;
+  height: 5px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #0a0a0a;
+  background: #0B0B0B;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #27272a;
+  background: rgba(255, 255, 255, 0.12);
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #3f3f46;
+  background: rgba(255, 255, 255, 0.22);
 }
 
-/* Terminal Glassmorphism & Accent Glow Utilities */
-.glass-panel {
-  background: rgba(18, 18, 18, 0.75);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(39, 39, 42, 0.7);
+/* Restrained Rectangular Button System (8px radius, 44-48px height, 15px Inter Medium) */
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  height: 46px;
+  padding: 0 1.25rem;
+  border-radius: 8px;
+  background-color: #F3F3F0;
+  color: #0B0B0B;
+  font-family: var(--font-body);
+  font-weight: 500;
+  font-size: 15px;
+  line-height: 1;
+  border: none;
+  box-shadow: none;
+  transition: background-color 180ms ease, opacity 180ms ease;
+  cursor: pointer;
 }
 
-.emerald-glow {
-  box-shadow: 0 0 25px -5px rgba(16, 185, 129, 0.25);
+.btn-primary:hover {
+  background-color: #E2E2DE;
 }
 
-.emerald-border-glow:hover {
-  border-color: rgba(16, 185, 129, 0.5);
-  box-shadow: 0 0 15px -3px rgba(16, 185, 129, 0.2);
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  height: 46px;
+  padding: 0 1.25rem;
+  border-radius: 8px;
+  background-color: transparent;
+  color: #F3F3F0;
+  font-family: var(--font-body);
+  font-weight: 500;
+  font-size: 15px;
+  line-height: 1;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  transition: border-color 180ms ease, color 180ms ease;
+  cursor: pointer;
+}
+
+.btn-secondary:hover {
+  border-color: rgba(255, 255, 255, 0.32);
+}
+
+/* Technical Labels: IBM Plex Mono 13px Weight 500 */
+.tech-label {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+}
+
+/* Navigation: Inter 15px Weight 500 */
+.nav-text {
+  font-family: var(--font-body);
+  font-size: 15px;
+  font-weight: 500;
+}
+
+/* Clean Editorial Card Surfaces */
+.surface-card {
+  background-color: #111111;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  transition: border-color 200ms ease;
+}
+
+.surface-card:hover {
+  border-color: rgba(255, 255, 255, 0.16);
+}
+
+/* Subtle 1px Technical Grid for Background */
+.bg-tech-grid {
+  background-size: 48px 48px;
+  background-image: 
+    linear-gradient(to right, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, ::before, ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
